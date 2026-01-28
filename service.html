@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | The Pyramids Museums Roof</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0ea5e9;
+            --deep-obsidian: #05070a;
+            --soft-gold: #c5a059;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-light: #f8fafc;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        [lang="ar"] {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+
+        body {
+            background-color: var(--deep-obsidian);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, .brand-logo {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- Reusable Components --- */
+        .btn {
+            padding: 12px 30px;
+            border: 1px solid var(--primary-blue);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--deep-obsidian);
+            font-weight: 700;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .section-padding {
+            padding: 100px 8%;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(5, 7, 10, 0.9), transparent);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(5, 7, 10, 0.98);
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo { font-size: 1.5rem; color: var(--primary-blue); font-weight: 700; }
+
+        #lang-switch {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 5px 15px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+
+.nav-links a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-light);
+}
+/* الروابط افتراضية أفقية */
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* روابط متجاوبة */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* شاشات صغيرة */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.95);
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        display: none; /* مخفية افتراضياً */
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-actions {
+        gap: 10px;
+    }
+}
+
+        /* --- Hero Header --- */
+        .services-hero {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(5, 7, 10, 0.6), rgba(5, 7, 10, 1)), 
+                        url('https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .services-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .services-hero p {
+            color: var(--soft-gold);
+            letter-spacing: 3px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        /* --- Intro Section --- */
+        .intro-text {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #94a3b8;
+        }
+
+        /* --- Services Grid --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-blue);
+            background: rgba(14, 165, 233, 0.05);
+            transform: translateY(-10px);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--soft-gold);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        /* --- Experience Section --- */
+        .experience-banner {
+            background: linear-gradient(45deg, #05070a, #0c1a2b);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .exp-image {
+            flex: 1;
+            height: 450px;
+            background: url('WhatsApp Image 2026-01-27 at 5.42.10 PM (1).jpeg') center/cover;
+            border: 1px solid var(--primary-blue);
+        }
+
+        .exp-text { flex: 1.2; }
+
+        /* --- CTA Section --- */
+        .cta-box {
+            background: linear-gradient(rgba(14, 165, 233, 0.9), rgba(14, 165, 233, 0.9)), 
+                        url('https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            padding: 80px 40px;
+            text-align: center;
+            color: var(--deep-obsidian);
+            border-radius: 4px;
+        }
+
+        .cta-box h2 { color: var(--deep-obsidian); margin-bottom: 20px; }
+
+        /* --- Footer --- */
+        footer {
+            padding: 60px 10%;
+            border-top: 1px solid var(--glass);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            border: 1px solid var(--glass);
+            padding: 8px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 968px) {
+            .experience-banner { flex-direction: column; padding: 60px 8%; }
+            .exp-image { width: 100%; height: 300px; }
+            .section-padding { padding: 60px 5%; }
+                        footer { grid-template-columns: 1fr; text-align: center; }
+
+        }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="logo brand-logo" data-key="brand">Pyramids Museums Roof</div>
+
+    <!-- روابط الناف بار -->
+    <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="service.html">Tours</a>
+        <a href="menu.html">menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- أزرار -->
+    <div class="nav-actions">
+        <button id="lang-switch" onclick="toggleLanguage()">AR</button>
+        <!-- زر الموبايل -->
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+    <header class="services-hero">
+        <h1 data-key="heroTitle">Our Services</h1>
+        <p data-key="heroSub">Luxury Curated For The Elite</p>
+    </header>
+
+    <section class="section-padding">
+        <div class="intro-text">
+            <p data-key="introDesc">From the moment you arrive, we weave a tapestry of luxury around you. Whether it's a stay in our suites or a dinner overlooking the Giza Plateau, every service is designed to be a memory that lasts forever.</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <i>⟡</i>
+                <h3 data-key="s1T">Hotel Rooms</h3>
+                <p data-key="s1D">Bespoke luxury suites where the first thing you see every morning is the majesty of the Great Pyramids. Designed with premium Egyptian cotton and modern aesthetics.</p>
+                <a href="gallery.html" class="btn" data-key="btnStay">Stay With Us</a>
+            </div>
+
+            <div class="service-card">
+                <i>☕</i>
+                <h3 data-key="s2T">Touristic Café</h3>
+                <p data-key="s2D">Sip on artisanal coffee and traditional Egyptian blends while the sun sets behind the Sphinx. A calm sanctuary for the weary traveler.</p>
+                <a href="gallery.html" class="btn" data-key="btnExplore">Explore Café</a>
+            </div>
+
+            <div class="service-card">
+                <i>🍽️</i>
+                <h3 data-key="s3T">Rooftop Restaurant</h3>
+                <p data-key="s3D">Fine dining that bridges cultures. Experience a fusion of international techniques and authentic local flavors under the starry Egyptian sky.</p>
+                <a href="gallery.html" class="btn" data-key="btnDine">Reserve Table</a>
+            </div>
+
+            <div class="service-card">
+                <i>✨</i>
+                <h3 data-key="s4T">Events & Celebrations</h3>
+                <p data-key="s4D">From royal weddings to high-level corporate gatherings, our open hall offers a cinematic backdrop that no other venue on earth can match.</p>
+                <a href="gallery.html" class="btn" data-key="btnEvent">Plan Event</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding experience-banner">
+        <div class="exp-image"></div>
+        <div class="exp-text">
+            <h2 data-key="expTitle" style="color: var(--primary-blue); margin-bottom: 25px;">The Atmosphere of Ages</h2>
+            <p data-key="expDesc" style="margin-bottom: 30px;">Our service philosophy is simple: perfection in the presence of history. We don't just provide hospitality; we provide a front-row seat to the wonders of the world, wrapped in a blanket of five-star luxury and modern sky-blue elegance.</p>
+            <div style="display: flex; gap: 15px; border-left: 2px solid var(--soft-gold); padding-left: 20px;">
+                <div>
+                    <strong style="display: block; color: var(--soft-gold);" data-key="stat1">100%</strong>
+                    <span style="font-size: 0.8rem;" data-key="stat1D">Pyramid View</span>
+                </div>
+                <div>
+                    <strong style="display: block; color: var(--soft-gold);" data-key="stat2">24/7</strong>
+                    <span style="font-size: 0.8rem;" data-key="stat2D">VIP Service</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="cta-box">
+            <h2 data-key="ctaTitle">Elevate Your Egyptian Journey</h2>
+            <p style="margin-bottom: 30px; font-weight: 600;" data-key="ctaSub">Limited suites and tables available for the season.</p>
+            <a href="contact.html" class="btn" style="background: var(--deep-obsidian); color: white; border: none;" data-key="ctaBtn">Secure Your Booking</a>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <span class="brand-logo logo" style="font-size: 1.8rem; display: block; margin-bottom: 20px;">The Roof</span>
+            <p data-key="fDesc" style="opacity: 0.7;">Redefining the luxury touristic experience at the heart of the Giza Plateau.</p>
+        </div>
+        <div>
+            <h4 style="color: var(--primary-blue); margin-bottom: 20px;" data-key="fLinks">Quick Links</h4>
+            <p><a href="index.html" style="color: white; text-decoration: none;">Home</a></p>
+            <p><a href="service.html" style="color: white; text-decoration: none;">Services</a></p>
+            <p><a href="contact.html" style="color: white; text-decoration: none;">Contact</a></p>
+        </div>
+        <div style="display: flex; flex-direction:column;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 20px;" data-key="fFollow">Follow Elegance</h4>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.instagram.com/thepyramidsmuseumroof?utm_source=qr&igsh=MTI3dHFlbDdzNWw4eA==">Instagram</a>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.facebook.com/share/1HSGPGAvtJ/">Facebook</a>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.tiktok.com/@pyramids.museum.r8?_r=1&_t=ZS-93QkRjwskDP">tiktok</a>
+             <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://wa.me/201501100995">WhatsApp</a>
+
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                brand: "The Roof",
+                navBook: "Book Now",
+                heroTitle: "Our Services",
+                heroSub: "Luxury Curated For The Elite",
+                introDesc: "From the moment you arrive, we weave a tapestry of luxury around you. Whether it's a stay in our suites or a dinner overlooking the Giza Plateau, every service is designed to be a memory that lasts forever.",
+                s1T: "Hotel Rooms",
+                s1D: "Bespoke luxury suites where the first thing you see every morning is the majesty of the Great Pyramids.",
+                btnStay: "Stay With Us",
+                s2T: "Touristic Café",
+                s2D: "Sip on artisanal coffee and traditional Egyptian blends while the sun sets behind the Sphinx.",
+                btnExplore: "Explore Café",
+                s3T: "Rooftop Restaurant",
+                s3D: "Fine dining that bridges cultures. Experience a fusion of flavors under the starry Egyptian sky.",
+                btnDine: "Reserve Table",
+                s4T: "Events & Celebrations",
+                s4D: "From royal weddings to corporate gatherings, our open hall offers a cinematic backdrop unlike any other.",
+                btnEvent: "Plan Event",
+                expTitle: "The Atmosphere of Ages",
+                expDesc: "Our service philosophy is simple: perfection in the presence of history. We provide a front-row seat to the wonders of the world, wrapped in a blanket of five-star luxury.",
+                stat1: "100%", stat1D: "Pyramid View",
+                stat2: "24/7", stat2D: "VIP Service",
+                ctaTitle: "Elevate Your Egyptian Journey",
+                ctaSub: "Limited suites and tables available for the season.",
+                ctaBtn: "Secure Your Booking",
+                fDesc: "The ultimate luxury rooftop destination at the heart of Giza's heritage.",
+                fContact: "Contact",
+                fSocial: "Social"
+            },
+            ar: {
+                brand: "ذا رووف",
+                navBook: "احجز الآن",
+                heroTitle: "خدماتنا",
+                heroSub: "فخامة مُصممة للنخبة",
+                introDesc: "منذ لحظة وصولك، ننسج حولك تجربة من الرفاهية. سواء كانت إقامة في أجنحتنا أو عشاءً يطل على هضبة الجيزة، فكل خدمة مصممة لتكون ذكرى تدوم للأبد.",
+                s1T: "الغرف الفندقية",
+                s1D: "أجنحة فاخرة مصممة خصيصاً حيث أول ما تراه كل صباح هو عظمة الأهرامات العظيمة.",
+                btnStay: "أقم معنا",
+                s2T: "المقهى السياحي",
+                s2D: "ارتشف القهوة المختصة والمزيج المصري التقليدي بينما تغرب الشمس خلف أبو الهول.",
+                btnExplore: "استكشف المقهى",
+                s3T: "مطعم الرووف",
+                s3D: "تجربة طعام راقية تجمع بين الثقافات. استمتع بمزيج من النكهات تحت سماء مصر المرصعة بالنجوم.",
+                btnDine: "احجز طاولة",
+                s4T: "الفعاليات والاحتفالات",
+                s4D: "من حفلات الزفاف الملكية إلى الاجتماعات الراقية، توفر قاعتنا المفتوحة خلفية سينمائية لا مثيل لها.",
+                btnEvent: "خطط لفعاليتك",
+                expTitle: "أجواء عبر العصور",
+                expDesc: "فلسفة الخدمة لدينا بسيطة: الكمال في حضرة التاريخ. نحن نوفر مقعداً في الصف الأول لعجائب العالم، محاطاً بخدمة خمس نجوم وأناقة عصرية.",
+                stat1: "100%", stat1D: "إطلالة الأهرامات",
+                stat2: "24/7", stat2D: "خدمة كبار الشخصيات",
+                ctaTitle: "ارتقِ برحلتك المصرية",
+                ctaSub: "تتوفر أجنحة وطاولات محدودة لهذا الموسم.",
+                ctaBtn: "أكد حجزك الآن",
+                fDesc: "الوجهة الفاخرة النهائية في قلب تراث الجيزة العريق.",
+                fContact: "اتصل بنا",
+                fSocial: "التواصل الاجتماعي"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.documentElement.lang = currentLang;
+            document.getElementById('lang-switch').innerText = currentLang === 'en' ? 'AR' : 'EN';
+            
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key');
+                elem.innerText = translations[currentLang][key];
+            });
+
+            // Adjust layout for RTL
+            document.body.style.textAlign = currentLang === 'ar' ? 'right' : 'left';
+            const expBanner = document.querySelector('.experience-banner');
+            expBanner.style.flexDirection = currentLang === 'ar' ? 'row-reverse' : 'row';
+            
+            // Adjust quote border for RTL
+            const statBox = expBanner.querySelector('div[style*="border-left"]');
+            if (currentLang === 'ar') {
+                statBox.style.borderLeft = 'none';
+                statBox.style.borderRight = '2px solid var(--soft-gold)';
+                statBox.style.paddingLeft = '0';
+                statBox.style.paddingRight = '20px';
+            } else {
+                statBox.style.borderRight = 'none';
+                statBox.style.borderLeft = '2px solid var(--soft-gold)';
+                statBox.style.paddingRight = '0';
+                statBox.style.paddingLeft = '20px';
+            }
+        }
+        function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+}
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | The Pyramids Museums Roof</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0ea5e9;
+            --deep-obsidian: #05070a;
+            --soft-gold: #c5a059;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-light: #f8fafc;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        [lang="ar"] {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+
+        body {
+            background-color: var(--deep-obsidian);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-logo {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(5, 7, 10, 0.9), transparent);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(5, 7, 10, 0.98);
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo { font-size: 1.4rem; color: var(--primary-blue); font-weight: 700; text-decoration: none; }
+
+        #lang-switch {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 6px 18px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        #lang-switch:hover {
+            background: var(--primary-blue);
+            color: var(--deep-obsidian);
+        }
+
+.nav-links a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-light);
+}
+/* الروابط افتراضية أفقية */
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* روابط متجاوبة */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* شاشات صغيرة */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        display: none; /* مخفية افتراضياً */
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-actions {
+        gap: 10px;
+    }
+}
+
+        /* --- Hero --- */
+        .gallery-hero {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(5, 7, 10, 0.6), rgba(5, 7, 10, 1)), 
+                        url('https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .gallery-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .gallery-hero p {
+            color: var(--soft-gold);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* --- Filter Tabs --- */
+        .filter-container {
+            padding: 40px 5%;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: var(--deep-obsidian);
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            background: rgba(14, 165, 233, 0.05);
+        }
+
+        /* --- Gallery Grid --- */
+        .gallery-section {
+            padding: 20px 5% 100px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: var(--glass);
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(5, 7, 10, 0.9) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-category {
+            font-size: 0.7rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .item-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .video-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(14, 165, 233, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* --- Featured Experience --- */
+        .featured-banner {
+            background: linear-gradient(rgba(5, 7, 10, 0.8), rgba(5, 7, 10, 0.8)), 
+                        url('https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 150px 10%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .featured-banner h2 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 25px;
+        }
+
+        /* --- CTA --- */
+        .cta-section {
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: 1px solid var(--primary-blue);
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--deep-obsidian);
+            font-weight: 700;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 60px 10%;
+            border-top: 1px solid var(--glass);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            border: 1px solid var(--glass);
+            padding: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .filter-container { top: 70px; padding: 20px 5%; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            footer { grid-template-columns: 1fr; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="logo brand-logo" data-key="brand">Pyramids Museums Roof</div>
+
+    <!-- روابط الناف بار -->
+    <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="service.html">Tours</a>
+        <a href="menu.html">menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- أزرار -->
+    <div class="nav-actions">
+        <button id="lang-switch" onclick="toggleLanguage()">AR</button>
+        <!-- زر الموبايل -->
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+    <header class="gallery-hero">
+        <h1 data-key="heroTitle">The Gallery</h1>
+        <p data-key="heroSub">Visions of Eternity</p>
+    </header>
+
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterGallery('all')" data-key="fAll">All</button>
+        <button class="filter-btn" onclick="filterGallery('rooms')" data-key="fRooms">Hotel Rooms</button>
+        <button class="filter-btn" onclick="filterGallery('rooftop')" data-key="fRoof">Rooftop</button>
+        <button class="filter-btn" onclick="filterGallery('cafe')" data-key="fCafe">Café</button>
+        <button class="filter-btn" onclick="filterGallery('restaurant')" data-key="fRest">Restaurant</button>
+        <button class="filter-btn" onclick="filterGallery('events')" data-key="fEvents">Events</button>
+    </div>
+
+    <section class="gallery-section">
+        <div class="gallery-grid" id="galleryGrid">
+
+
+
+            <div class="gallery-item" data-category="rooftop">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.11 PM.jpeg" alt="Rooftop">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRoof">Rooftop</span>
+                    <span class="item-title" data-key="i2">Sunset Panorama</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="rooftop">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.10 PM (1).jpeg" alt="Rooftop">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRoof">Rooftop</span>
+                    <span class="item-title" data-key="i2">Sunset Panorama</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooftop">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.09 PM (2).jpeg" alt="Rooftop">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRoof">Rooftop</span>
+                    <span class="item-title" data-key="i2">Sunset Panorama</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooftop">
+                <img src="WhatsApp Image 2026-01-27 at 5.36.00 PM.jpeg" alt="Rooftop">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRoof">Rooftop</span>
+                    <span class="item-title" data-key="i2">Sunset Panorama</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooftop">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.07 PM (2).jpeg" alt="Rooftop">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRoof">Rooftop</span>
+                    <span class="item-title" data-key="i2">Sunset Panorama</span>
+                </div>
+            </div>
+
+
+
+
+            <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-27 at 5.35.46 PM.jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.06 PM.jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-28 at 11.03.57 AM (1).jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+
+                                    <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-28 at 11.03.57 AM.jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-28 at 11.03.57 AM (2).jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-28 at 11.03.58 AM.jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-28 at 11.03.58 AM (1).jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="restaurant">
+                <img src="WhatsApp Image 2026-01-28 at 11.05.38 AM.jpeg" alt="Restaurant">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRest">Restaurant</span>
+                    <span class="item-title" data-key="i3">Midnight Dining</span>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="gallery-item" data-category="events">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.07 PM (3).jpeg" alt="Wedding">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fEvents">Events</span>
+                    <span class="item-title" data-key="i4">Grand Weddings</span>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="events">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.07 PM (4).jpeg" alt="Wedding">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fEvents">Events</span>
+                    <span class="item-title" data-key="i4">Grand Weddings</span>
+                </div>
+            </div>
+
+
+
+
+            <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-27 at 5.44.22 PM (2).jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.09 PM (1).jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.09 PM.jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+
+                                    <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-28 at 11.01.13 AM.jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-28 at 11.01.14 AM.jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-28 at 11.01.14 AM (1).jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-28 at 11.01.14 AM (2).jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+                                    <div class="gallery-item" data-category="cafe">
+                <img src="WhatsApp Image 2026-01-28 at 11.01.14 AM (3).jpeg" alt="Cafe">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fCafe">Café</span>
+                    <span class="item-title" data-key="i5">Morning Brew</span>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 8.55.32 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 8.56.04 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 8.56.16 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 8.57.04 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 8.57.26 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 8.57.29 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 8.57.39 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 9.02.39 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 9.02.39 PM (1).jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 9.02.40 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 9.02.41 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+                        <div class="gallery-item" data-category="rooms">
+                <img src="WhatsApp Image 2026-01-27 at 9.02.52 PM.jpeg" alt="Room">
+                <div class="item-overlay">
+                    <span class="item-category" data-key="fRooms">Hotel Rooms</span>
+                    <span class="item-title" data-key="i1">Royal Suite View</span>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </section>
+
+    <section class="featured-banner">
+        <h2 data-key="featTitle">Capture The Moment</h2>
+        <p style="max-width: 700px; margin: 0 auto; color: #94a3b8;" data-key="featDesc">Each corner of our roof is a frame waiting for your story. From the golden hues of the Giza Plateau to the sapphire glow of our interior design.</p>
+    </section>
+
+    <section class="cta-section">
+        <h2 style="margin-bottom: 30px;" data-key="ctaTitle">Ready to see it for yourself?</h2>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <a href="contact.html" class="btn btn-primary" data-key="navBook">Book Your Visit</a>
+<a href="https://wa.me/201501100995" class="btn" data-key="ctaContact" target="_blank">
+    Contact Us
+</a>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <span class="brand-logo logo" style="font-size: 1.8rem; display: block; margin-bottom: 20px;">The Roof</span>
+            <p data-key="fDesc" style="opacity: 0.7;">Redefining the luxury touristic experience at the heart of the Giza Plateau.</p>
+        </div>
+        <div>
+            <h4 style="color: var(--primary-blue); margin-bottom: 20px;" data-key="fLinks">Quick Links</h4>
+            <p><a href="index.html" style="color: white; text-decoration: none;">Home</a></p>
+            <p><a href="service.html" style="color: white; text-decoration: none;">Services</a></p>
+            <p><a href="contact.html" style="color: white; text-decoration: none;">Contact</a></p>
+        </div>
+        <div style="display: flex; flex-direction:column;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 20px;" data-key="fFollow">Follow Elegance</h4>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.instagram.com/thepyramidsmuseumroof?utm_source=qr&igsh=MTI3dHFlbDdzNWw4eA==">Instagram</a>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.facebook.com/share/1HSGPGAvtJ/">Facebook</a>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.tiktok.com/@pyramids.museum.r8?_r=1&_t=ZS-93QkRjwskDP">tiktok</a>
+             <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://wa.me/201501100995">WhatsApp</a>
+
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                brand: "The Roof",
+                navBook: "Book Now",
+                heroTitle: "The Gallery",
+                heroSub: "Visions of Eternity",
+                fAll: "All",
+                fRooms: "Hotel Rooms",
+                fRoof: "Rooftop",
+                fCafe: "Café",
+                fRest: "Restaurant",
+                fEvents: "Events",
+                i1: "Royal Suite View",
+                i2: "Sunset Panorama",
+                i3: "Midnight Dining",
+                i4: "Grand Weddings",
+                i5: "Morning Brew",
+                i6: "Skyline Sanctuary",
+                featTitle: "Capture The Moment",
+                featDesc: "Each corner of our roof is a frame waiting for your story. From the golden hues of the Giza Plateau to the sapphire glow of our interior design.",
+                ctaTitle: "Ready to see it for yourself?",
+                ctaContact: "Contact Us",
+                fRights: "© 2026 The Pyramids Museums Roof. All Rights Reserved."
+            },
+            ar: {
+                brand: "ذا رووف",
+                navBook: "احجز الآن",
+                heroTitle: "المعرض",
+                heroSub: "رؤى من الأزل",
+                fAll: "الكل",
+                fRooms: "الغرف الفندقية",
+                fRoof: "الرووف",
+                fCafe: "المقهى",
+                fRest: "المطعم",
+                fEvents: "الفعاليات",
+                i1: "إطلالة الجناح الملكي",
+                i2: "بانوراما الغروب",
+                i3: "عشاء تحت النجوم",
+                i4: "حفلات زفاف ملكية",
+                i5: "قهوة الصباح",
+                i6: "ملاذ الأفق",
+                featTitle: "وثّق اللحظة",
+                featDesc: "كل زاوية في الرووف هي إطار ينتظر قصتك. من التدرجات الذهبية لهضبة الجيزة إلى الوهج الياقوتي لتصاميمنا الداخلية.",
+                ctaTitle: "هل أنت مستعد لتجربتها بنفسك؟",
+                ctaContact: "اتصل بنا",
+                fRights: "© 2026 رووف متاحف الأهرامات. جميع الحقوق محفوظة."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.documentElement.lang = currentLang;
+            document.getElementById('lang-switch').innerText = currentLang === 'en' ? 'AR' : 'EN';
+            
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key');
+                elem.innerText = translations[currentLang][key];
+            });
+
+            document.body.style.textAlign = currentLang === 'ar' ? 'right' : 'left';
+        }
+
+        function filterGallery(category) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(category)) btn.classList.add('active');
+            });
+
+            // Update items
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                item.style.display = 'none';
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                }
+            });
+        }
+        function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+}
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        });
+
+        // Initialize display
+        filterGallery('all');
+    </script>
+</body>
+</html>

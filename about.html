@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | The Pyramids Museums Roof</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0ea5e9;
+            --deep-obsidian: #05070a;
+            --soft-gold: #c5a059;
+            --glass: rgba(255, 255, 255, 0.05);
+            --text-light: #f8fafc;
+            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        [lang="ar"] {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+
+        body {
+            background-color: var(--deep-obsidian);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, .brand-logo {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* --- Global Components --- */
+        .btn {
+            padding: 14px 35px;
+            border: 1px solid var(--primary-blue);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--deep-obsidian);
+            font-weight: 700;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 25px rgba(14, 165, 233, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .section-padding {
+            padding: 120px 10%;
+        }
+
+        .container-narrow {
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(5, 7, 10, 0.9), transparent);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(5, 7, 10, 0.98);
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .logo { font-size: 1.4rem; color: var(--primary-blue); font-weight: 700; }
+
+        #lang-switch {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 6px 18px;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+.nav-links a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-light);
+}
+/* الروابط افتراضية أفقية */
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* روابط متجاوبة */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* شاشات صغيرة */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        display: none; /* مخفية افتراضياً */
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-actions {
+        gap: 10px;
+    }
+}
+
+        /* --- Hero Intro --- */
+        .about-hero {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(5, 7, 10, 0.7), rgba(5, 7, 10, 1)), 
+                        url('WhatsApp Image 2026-01-27 at 5.42.09 PM (2).jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            animation: fadeInDown 1s forwards;
+        }
+
+        .about-hero p {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            color: var(--soft-gold);
+            text-transform: uppercase;
+        }
+
+        /* --- Storytelling Sections --- */
+        .story-section {
+            display: flex;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+
+        .story-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .story-content { flex: 1; }
+        .story-image {
+            flex: 1;
+            height: 500px;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .accent-line {
+            width: 50px;
+            height: 2px;
+            background: var(--primary-blue);
+            margin-bottom: 25px;
+        }
+
+        /* --- Philosophy Cards --- */
+        .phil-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .phil-card {
+            padding: 40px;
+            background: var(--glass);
+            border-left: 1px solid var(--soft-gold);
+            transition: var(--transition);
+        }
+
+        .phil-card:hover {
+            background: rgba(14, 165, 233, 0.05);
+            transform: translateY(-10px);
+        }
+
+        /* --- Why Choose Us --- */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            padding: 40px;
+            border: 1px solid var(--glass);
+            text-align: center;
+        }
+
+        .feature-item i {
+            display: block;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        /* --- Experience Highlight --- */
+        .highlight-banner {
+            background: linear-gradient(rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.1)),
+                        url('https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1920&q=80');
+            background-attachment: fixed;
+            background-size: cover;
+            padding: 150px 10%;
+            text-align: center;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 80px 10% 40px;
+            background: #020305;
+            border-top: 1px solid var(--glass);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .story-section, .story-section:nth-child(even) { flex-direction: column; gap: 40px; }
+            .phil-grid { grid-template-columns: 1fr; }
+            footer { grid-template-columns: 1fr; text-align: center; }
+        }
+        @media (max-width: 768px) {
+    .story-section {
+        flex-direction: column;
+        gap: 20px; /* قللها شوية */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .story-image img {
+        width: 100%;
+        height: auto; /* بدل 100% height لتجنب توسع */
+    }
+}
+@media (max-width: 768px) {
+    .section-padding {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+@media (max-width: 768px) {
+    .story-image img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .section-padding {
+        padding: 60px 5%;
+    }
+
+    .phil-grid, .feature-grid {
+        grid-template-columns: 1fr;
+        overflow: hidden;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="logo brand-logo" data-key="brand">Pyramids Museums Roof</div>
+
+    <!-- روابط الناف بار -->
+    <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="service.html">Tours</a>
+        <a href="menu.html">menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- أزرار -->
+    <div class="nav-actions">
+        <button id="lang-switch" onclick="toggleLanguage()">AR</button>
+        <!-- زر الموبايل -->
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+    <header class="about-hero">
+        <h1 data-key="pageTitle">About The Roof</h1>
+        <p data-key="pageSubtitle">A Legacy Above The Sands</p>
+    </header>
+
+    <section class="section-padding">
+        <div class="story-section">
+            <div class="story-content">
+                <div class="accent-line"></div>
+                <h2 style="margin-bottom: 20px;" data-key="whoTitle">Who We Are</h2>
+                <p data-key="whoDesc">The Pyramids Museums Roof is a sanctuary of elevated luxury, perched at the edge of history. We represent the pinnacle of Egyptian hospitality, offering a world-class destination where the ancient wonders of the Giza Plateau meet the sophisticated comforts of modern design.</p>
+            </div>
+            <div class="story-image">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.07 PM (2).jpeg" alt="Pyramids View">
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: rgba(255,255,255,0.02);">
+        <div class="story-section">
+            <div class="story-content">
+                <div class="accent-line"></div>
+                <h2 style="margin-bottom: 20px;" data-key="storyTitle">Our Story</h2>
+                <p data-key="storyDesc">Born from a passion for culture and excellence, our journey began with a simple vision: to create a space where time stands still. Every stone in our architecture and every flavor in our kitchen is a tribute to the timeless beauty of the Pyramids, curated for those who seek the extraordinary.</p>
+            </div>
+            <div class="story-image">
+                <img src="WhatsApp Image 2026-01-27 at 5.42.11 PM.jpeg" alt="Luxury Dining">
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container-narrow">
+            <h2 data-key="philTitle" style="margin-bottom: 10px;">Our Philosophy</h2>
+            <div style="width: 60px; height: 2px; background: var(--soft-gold); margin: 0 auto 40px;"></div>
+            <div class="phil-grid">
+                <div class="phil-card">
+                    <h3 data-key="p1T" style="color: var(--primary-blue); margin-bottom: 15px;">Hospitality</h3>
+                    <p data-key="p1D" style="font-size: 0.9rem;">Genuine care that anticipates every need before it arises.</p>
+                </div>
+                <div class="phil-card">
+                    <h3 data-key="p2T" style="color: var(--primary-blue); margin-bottom: 15px;">Heritage</h3>
+                    <p data-key="p2D" style="font-size: 0.9rem;">Respecting the past while embracing the innovation of the future.</p>
+                </div>
+                <div class="phil-card">
+                    <h3 data-key="p3T" style="color: var(--primary-blue); margin-bottom: 15px;">Excellence</h3>
+                    <p data-key="p3D" style="font-size: 0.9rem;">A commitment to the highest standards in every detail.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: #020305;">
+        <div class="container-narrow" style="margin-bottom: 60px;">
+            <h2 data-key="whyTitle">The Distinction</h2>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i>✦</i>
+                <h3 data-key="f1T">Prime Location</h3>
+                <p data-key="f1D" style="font-size: 0.85rem; margin-top: 10px;">The closest premium rooftop view of the Great Pyramids.</p>
+            </div>
+            <div class="feature-item">
+                <i>✦</i>
+                <h3 data-key="f2T">Gourmet Mastery</h3>
+                <p data-key="f2D" style="font-size: 0.85rem; margin-top: 10px;">Award-winning chefs blending local spices with global flair.</p>
+            </div>
+            <div class="feature-item">
+                <i>✦</i>
+                <h3 data-key="f3T">Elegant Events</h3>
+                <p data-key="f3D" style="font-size: 0.85rem; margin-top: 10px;">A majestic backdrop for your most precious celebrations.</p>
+            </div>
+            <div class="feature-item">
+                <i>✦</i>
+                <h3 data-key="f4T">Private Luxury</h3>
+                <p data-key="f4D" style="font-size: 0.85rem; margin-top: 10px;">Exclusive suites designed for ultimate comfort and privacy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="highlight-banner">
+        <div class="container-narrow">
+            <h2 data-key="expTitle" style="font-size: 2.5rem; margin-bottom: 20px;">An Unforgettable Encounter</h2>
+            <p data-key="expDesc" style="margin-bottom: 40px; font-size: 1.2rem;">Walk the line between the golden sands of the past and the sky-blue luxury of the present.</p>
+            <a href="service.html" class="
+            btn btn-primary" data-key="ctaVisit">Plan Your Visit</a>
+        </div>
+    </section>
+
+    <section class="section-padding" style="text-align: center;">
+        <h2 data-key="ctaTitle" style="margin-bottom: 30px;">Discover The Museum Above The Clouds</h2>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <a href="contact.html" class="btn btn-primary" data-key="navBook">Book Now</a>
+            <a href="gallery.html" class="btn" data-key="ctaGallery">View Gallery</a>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <span class="brand-logo logo" style="font-size: 1.8rem; display: block; margin-bottom: 20px;">The Roof</span>
+            <p data-key="fDesc" style="opacity: 0.7;">Redefining the luxury touristic experience at the heart of the Giza Plateau.</p>
+        </div>
+        <div>
+            <h4 style="color: var(--primary-blue); margin-bottom: 20px;" data-key="fLinks">Quick Links</h4>
+            <p><a href="index.html" style="color: white; text-decoration: none;">Home</a></p>
+            <p><a href="service.html" style="color: white; text-decoration: none;">Services</a></p>
+            <p><a href="contact.html" style="color: white; text-decoration: none;">Contact</a></p>
+        </div>
+        <div style="display: flex; flex-direction:column;">
+            <h4 style="color: var(--primary-blue); margin-bottom: 20px;" data-key="fFollow">Follow Elegance</h4>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.instagram.com/thepyramidsmuseumroof?utm_source=qr&igsh=MTI3dHFlbDdzNWw4eA==">Instagram</a>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.facebook.com/share/1HSGPGAvtJ/">Facebook</a>
+            <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://www.tiktok.com/@pyramids.museum.r8?_r=1&_t=ZS-93QkRjwskDP">tiktok</a>
+             <a style="color: #f8fafc; font-size:larger; text-decoration:none;cursor:pointer" href="https://wa.me/201501100995">WhatsApp</a>
+
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                brand: "The Roof",
+                navBook: "Book Now",
+                pageTitle: "About The Roof",
+                pageSubtitle: "A Legacy Above The Sands",
+                whoTitle: "Who We Are",
+                whoDesc: "The Pyramids Museums Roof is a sanctuary of elevated luxury, perched at the edge of history. We represent the pinnacle of Egyptian hospitality, offering a world-class destination where the ancient wonders of the Giza Plateau meet the sophisticated comforts of modern design.",
+                storyTitle: "Our Story",
+                storyDesc: "Born from a passion for culture and excellence, our journey began with a simple vision: to create a space where time stands still. Every stone in our architecture and every flavor in our kitchen is a tribute to the timeless beauty of the Pyramids.",
+                philTitle: "Our Philosophy",
+                p1T: "Hospitality", p1D: "Genuine care that anticipates every need before it arises.",
+                p2T: "Heritage", p2D: "Respecting the past while embracing the innovation of the future.",
+                p3T: "Excellence", p3D: "A commitment to the highest standards in every detail.",
+                whyTitle: "The Distinction",
+                f1T: "Prime Location", f1D: "The closest premium rooftop view of the Great Pyramids.",
+                f2T: "Gourmet Mastery", f2D: "Award-winning chefs blending local spices with global flair.",
+                f3T: "Elegant Events", f3D: "A majestic backdrop for your most precious celebrations.",
+                f4T: "Private Luxury", f4D: "Exclusive suites designed for ultimate comfort and privacy.",
+                expTitle: "An Unforgettable Encounter",
+                expDesc: "Walk the line between the golden sands of the past and the sky-blue luxury of the present.",
+                ctaVisit: "Plan Your Visit",
+                ctaTitle: "Discover The Museum Above The Clouds",
+                ctaGallery: "View Gallery",
+                fDesc: "Redefining the luxury touristic experience at the heart of the Giza Plateau.",
+                fLinks: "Quick Links",
+                fFollow: "Follow Elegance"
+            },
+            ar: {
+                brand: "ذا رووف",
+                navBook: "احجز الآن",
+                pageTitle: "عن الرووف",
+                pageSubtitle: "إرثٌ فوق الرمال",
+                whoTitle: "من نحن",
+                whoDesc: "رووف متاحف الأهرامات هو ملاذ من الفخامة المرتفعة، يقع على حافة التاريخ. نحن نمثل قمة الضيافة المصرية، ونقدم وجهة عالمية المستوى حيث تلتقي عجائب هضبة الجيزة القديمة مع الراحة المتطورة للتصميم الحديث.",
+                storyTitle: "قصتنا",
+                storyDesc: "ولدت رحلتنا من الشغف بالثقافة والتميز، بدأت برؤية بسيطة: خلق مساحة يتوقف فيها الزمن. كل حجر في معمارنا وكل نكهة في مطبخنا هي تحية للجمال الخالد للأهرامات، مخصصة لأولئك الذين يبحثون عن الاستثناء.",
+                philTitle: "فلسفتنا",
+                p1T: "الضيافة", p1D: "رعاية حقيقية تستبق كل احتياجاتك قبل ظهورها.",
+                p2T: "التراث", p2D: "احترام الماضي مع تبني ابتكارات المستقبل.",
+                p3T: "التميز", p3D: "التزام بأعلى المعايير في كل تفصيل صغير.",
+                whyTitle: "وجه التميز",
+                f1T: "موقع فريد", f1D: "أقرب إطلالة بانورامية فاخرة على الأهرامات العظيمة.",
+                f2T: "إتقان الطهي", f2D: "طهاة حائزون على جوائز يمزجون التوابل المحلية بلمسة عالمية.",
+                f3T: "فعاليات راقية", f3D: "خلفية مهيبة لأكثر احتفالاتك قيمة وفخامة.",
+                f4T: "فخامة خاصة", f4D: "أجنحة حصرية مصممة لراحة وخصوصية لا مثيل لها.",
+                expTitle: "لقاء لا يُنسى",
+                expDesc: "سر على الخط الفاصل بين الرمال الذهبية للماضي وفخامة الحاضر الزرقاء.",
+                ctaVisit: "خطط لزيارتك",
+                ctaTitle: "اكتشف المتحف فوق السحاب",
+                ctaGallery: "عرض المعرض",
+                fDesc: "إعادة تعريف تجربة السياحة الفاخرة في قلب هضبة الجيزة.",
+                fLinks: "روابط سريعة",
+                fFollow: "تابع الأناقة"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.documentElement.lang = currentLang;
+            document.getElementById('lang-switch').innerText = currentLang === 'en' ? 'AR' : 'EN';
+            
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key');
+                elem.innerText = translations[currentLang][key];
+            });
+
+            document.body.style.textAlign = currentLang === 'ar' ? 'right' : 'left';
+            document.querySelectorAll('.accent-line').forEach(line => {
+                line.style.marginRight = currentLang === 'ar' ? '0' : 'auto';
+                line.style.marginLeft = currentLang === 'ar' ? 'auto' : '0';
+            });
+        }
+        function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+}
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        });
+    </script>
+</body>
+</html>
